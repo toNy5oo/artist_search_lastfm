@@ -11,12 +11,13 @@ require('dotenv').config({ path: __dirname + '/lastfm.env' })
 //Static resources accessible from Public Folder
 app.use(express.static(__dirname + '/public'));
 
+//Check if /public/files folder exists, if not creates one
 if (!fs.existsSync(__dirname + '/public/files')) {
     fs.mkdir(path.join(__dirname, 'public', 'files'), (err) => {
         if (err) {
             return console.error(err);
         }
-        console.log('new directory (files) created successfully!');
+        console.log('new directory /public/files created successfully!');
     });
 }
 
