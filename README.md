@@ -14,15 +14,24 @@ git clone https://github.com/toNy5oo/artist_search_lastfm.git
 ```
 
 ## How to setup the environment
-This application is based on Nodejs. Therefore Nodejs (and the Node Paackage Manager) needs to be installed on the machine. 
+This application is based on Node.js. Therefore Node.js (and the Node Paackage Manager) needs to be installed on the machine. 
 - Go to https://nodejs.org/
 - Select the version that is "Recommended for most users"
 - Install Node by double-clicking on the downloaded file and following the installation prompts
-- Once installation is finished, check if Nodejs is installed correctly with the terminal command:
+- Once installation is finished, check if Node.js is installed correctly with the terminal command:
 ```
 node -v
 ```
-If the terminal returns something similar to v16.11.1 Node has been installed successfully
+
+If the terminal returns something similar to the following
+
+```
+node -v
+v16.11.1 
+```
+
+Node.js has been installed successfully
+
 
 ## How to install and run the application
 - In your terminal, navigate to the current directory where the repository has been cloned
@@ -32,18 +41,39 @@ If the terminal returns something similar to v16.11.1 Node has been installed su
 ```
 This command will install the modules and dependencies needed in order to run the app
 - Once the installation is finished, type
+
 ```
  npm start
 ```
+
 to run the app
 - Open the browser to http://localhost:3000
 
 ## Notes
 
-The specification file required to extract specific information after consuming the API (name, mbid, url,
-image_small, image)
-Checking with Postman the response of a random artist search (cher) the first 4 fields were accessible while the last one contained an array of different sized pictures. 
+The specification file required to extract specific informations after consuming the API (name, mbid, url, image_small, **image**)
+After checking with Postman the response on a search for a random artist (cher), I've noticed that the first 4 fields required are simple strings, while the last one (image) is an array of pictures (the same one for every size and every search). 
 
 <a href="https://ibb.co/QjRF9Wc"><img src="https://i.ibb.co/6JxRYKZ/image.png" alt="image" border="0"></a>
 
-I though of an update of the API response, so I've skipped that field. 
+I've concluded that the API may have been updated since the code test was written and the response structure has changed.
+Therefore I've skipped the image array while getting data from the response object.
+
+In case my assumption was wrong, the implementation would be modified this way:
+- As last field I would iterate the array received in response (item.image) creating a new array (imageArray) that would contain each single ['#text'] field of every object of the image array.
+
+```
+  imageArray = [item.image[0]['#text'],  item.image[1]['#text'], ... ,  item.image[image.length-1]['#text']]
+ 
+```
+- Creating a single item (string) out of the whole array
+
+```
+ imageArray.join(', ');
+```
+- and pushing it into the existing array with the previous retrieved fields.
+
+
+
+
+
