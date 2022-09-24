@@ -3,12 +3,22 @@ const express = require('express');
 const fs = require('fs');
 const app = express();
 const axios = require('axios');
+const path = require('path');
 
 //Set env variables from file (API Key of LAST.fm account)
 require('dotenv').config({ path: __dirname + '/lastfm.env' })
 
 //Static resources accessible from Public Folder
 app.use(express.static(__dirname + '/public'));
+
+if (!fs.existsSync(__dirname + '/public/files')) {
+    fs.mkdir(path.join(__dirname, 'public', 'files'), (err) => {
+        if (err) {
+            return console.error(err);
+        }
+        console.log('new directory (files) created successfully!');
+    });
+}
 
 //Setting view engine
 app.set('view engine', 'ejs')
