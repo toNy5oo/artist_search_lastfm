@@ -13,6 +13,16 @@ The app is currently hosted on **[Render](https://lastfm-search.onrender.com/)**
 git clone https://github.com/toNy5oo/artist_search_lastfm.git
 ```
 
+## How to retrieve the API_KEY
+The app uses LAST.fm API. In order to be able to fetch the data, after cloning the repository, a file called "lastfm.env" needs to be created in the root of the project.
+
+This file needs to contain the text 
+```
+LASTFM_KEY=[YOUR_KEY]
+``` 
+where [YOUR_KEY] is the key you will be able to get after filling up this form: 
+https://www.last.fm/api/account/create
+
 ## How to setup the environment
 This application is based on Node.js. Therefore Node.js (and the Node Paackage Manager) needs to be installed on the machine. 
 - Go to https://nodejs.org/
